@@ -142,11 +142,6 @@
 
             let bridgeOptions = {
                 platforms: {
-                    'y8': {
-                        gameId: '66f6e9506150c651f3803555',
-                        hostId: 'ca-host-pub-1235',
-                        adsenseId: 'ca-pub-1235',
-                    },
                 }
             }
 
@@ -164,18 +159,18 @@
                     }
 
                     let unityLoader = document.createElement('script')
-                    unityLoader.src = 'Build/97c2a7fb959861fedf28bd399d72045c.loader.js'
+                    unityLoader.src = 'Build/1f6a57bd8badf8d62ba7afd62fdfbde1.loader.js'
                     unityLoader.onload = () => {
                         createUnityInstance(
                             canvas,
                             {
-                                dataUrl: 'Build/34d21877ea4b79c1822ecde921472bb8.data.unityweb',
-                                frameworkUrl: 'Build/b580c8b1249cd0d37633c4882636726d.framework.js.unityweb',
-                                codeUrl: 'Build/205fd743f8866efb6097294919fe930e.wasm.unityweb',
+                                dataUrl: 'Build/54074b282b5fa8b463bf0066d4d78cc1.data.unityweb',
+                                frameworkUrl: 'Build/a16e7769b8d42e710054be1e86af60d1.framework.js.unityweb',
+                                codeUrl: 'Build/2a7cd6fc30acf3516dbce91ee61f81a7.wasm.unityweb',
                                 streamingAssetsUrl: 'StreamingAssets',
                                 companyName: 'Playgama',
                                 productName: 'bridge',
-                                productVersion: '1.18.0',
+                                productVersion: '1.19.0',
                                 // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
                                 // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
                             },
@@ -675,11 +670,19 @@
                 }
                 
                 bridge.payments.purchase(options)
-                    .then(() => {
-                        sendMessageToUnity('OnPaymentsPurchaseCompleted', 'true')
+                    .then(data => {
+                        if (data) {
+                            if (typeof data !== 'string') {
+                                data = JSON.stringify(data)
+                            }
+
+                            sendMessageToUnity('OnPaymentsPurchaseCompleted', data)
+                        } else {
+                            sendMessageToUnity('OnPaymentsPurchaseCompleted', '')
+                        }
                     })
                     .catch(error => {
-                        sendMessageToUnity('OnPaymentsPurchaseCompleted', 'false')
+                        sendMessageToUnity('OnPaymentsPurchaseFailed', '')
                     })
             }
 
@@ -781,8 +784,12 @@
                     })
             }
 
-            window.achievementsShowNativePopup = function() {
-                bridge.achievements.showNativePopup()
+            window.achievementsShowNativePopup = function(options) {
+                if (options) {
+                    options = JSON.parse(options)
+                }
+                
+                bridge.achievements.showNativePopup(options)
                     .then(() => {
                         sendMessageToUnity('OnAchievementsShowNativePopupCompleted', 'true')
                     })
@@ -791,8 +798,12 @@
                     })
             }
 
-            window.achievementsGetList = function() {
-                bridge.achievements.getList()
+            window.achievementsGetList = function(options) {
+                if (options) {
+                    options = JSON.parse(options)
+                }
+
+                bridge.achievements.getList(options)
                     .then(data => {
                         if (data) {
                             if (typeof data !== 'string') {
