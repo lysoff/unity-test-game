@@ -206,7 +206,7 @@
                             onUnityLoadingProgressChanged)
                             .then((unityInstance) => {
                                 window.unityInstance = unityInstance
-                                setTimeout(() => loadingOverlay.remove(), 500)
+                                setTimeout(() => loadingOverlay.remove(), 700)
                                 canvas.focus()
                             })
                             .catch((error) => {
