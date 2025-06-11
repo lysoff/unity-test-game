@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>bridge</title>
+        <title>Bridge</title>
         <style>
             html, body {
                 width: 100%;
@@ -19,12 +19,6 @@
                 top: 0px;
                 left: 0px;
             }
-            #banner-container {
-                position: absolute;
-                bottom: 0px;
-                width: 100%;
-                height: 90px;
-            }
             #loading-overlay {
                 font-size: 20px;
                 z-index: 1;
@@ -33,36 +27,124 @@
                 justify-content: center;
                 align-items: center;
             }
-            #icon {
+
+            #logo {
                 max-width: 100px;
-                border-radius: 10px;
-                margin-bottom: 20px;
+                overflow: visible;
+                /* border-radius: 2px;
+                margin-bottom: 20px; */
             }
-            #progress-bar {
-                border-radius: 5px;
-                width: 90%;
-                max-width: 250px;
-                height: 20px;
-                background: #181818;
-                padding: 5px;
+
+            .fill-rect {
+                transform: translateY(100%);
+                transition: transform 0.5s ease-out;
             }
-            #progress-bar-fill {
-                border-radius: 3px;
-                width: 0%;
-                height: 100%;
-                background: #9747FF;
+
+            #gradientMover {
+                display: none;
             }
+
+            .gradient-mover {
+                animation: moveGradient .4s linear;
+            }
+
+            @keyframes moveGradient {
+                0% { transform: translateX(0);}
+                100% { transform: translateX(-250%);}
+            }
+           
         </style>
     </head>
     <body>
         <canvas id="canvas" class="fullscreen"></canvas>
-        <div id="banner-container" style="display: none"></div>
         <div id="loading-overlay" class="fullscreen">
-            <img id="icon" src="./icon.png" />
-            <div id="progress-bar"><div id="progress-bar-fill"></div></div>
+            <svg id="logo" viewBox="0 0 633 819" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <mask id="rhombus-mask">
+                        <rect x="0" y="0" width="100%" height="100%" fill="black" />
+                        <path
+                            d="M632 1V632H1V1H632ZM350 125.586V507.414L380.586 538H546V451H478.599L478.308 451.278L454.598 474H443.406L450.944 452.328L451 452.169V187.459L457.369 182H546V95H380.586L350 125.586ZM283 125.586L252.414 95H87V182H175.631L182 187.459V445.54L175.631 451H87V538H252.414L283 507.414V125.586Z"
+                            fill="white" />
+                        <path d="M633 687V660H548V687H560V791H548V819H633V792H601L592 801H587L590 792V752H627V725H590V687H633Z"
+                            fill="white" />
+                        <path
+                            d="M533 718V675L518 660H450L435 675V802L450 819H518L533 804V734H482V761H503V788L499 792H476L467 801H462L465 792V691L469 687H499L503 691V718H533Z"
+                            fill="white" />
+                        <path
+                            d="M402 660H310V687H322V792H310V819H402L417 804V675L402 660ZM387 788L383 792H363L354 801H349L352 792V687H383L387 691V788Z"
+                            fill="white" />
+                        <path d="M295 687V660H239V687H251V792H239V819H295V792H283V687H295Z" fill="white" />
+                        <path
+                            d="M215 791L200 760H209L224 745V675L209 660H121V687H132V792H121V819H162V760H166L193 819H227V791H215ZM194 729L190 733H173L164 742H159L162 733V687H190L194 691V729Z"
+                            fill="white" />
+                        <path
+                            d="M106 724V675L91 660H0V687H12V792H0V819H91L106 804V749L89 744V728L106 724ZM73 788L69 792H53L44 801H39L42 792V752H73V788ZM73 725H53L44 734H39L42 725V687H69L73 691V725Z"
+                            fill="white" />
+                    </mask>
+            
+                    <linearGradient id="shineGradient" x1="1233" y1="0" x2="1866" y2="633" gradientUnits="userSpaceOnUse">
+                        <stop offset="0.235577" stop-color="#9747FF" />
+                        <stop offset="0.240685" stop-color="white" />
+                        <stop offset="0.659749" stop-color="#9747FF" />
+                    </linearGradient>
+            
+                </defs>
+            
+                <g mask="url(#rhombus-mask)">
+                    <rect id="gradientMover" x="0" y="0" width="2532" height="819" fill="url(#shineGradient)"
+                        style="transform: translateX(0);" />
+                </g>
+            
+                <g mask="url(#rhombus-mask)">
+                    <rect id="fillRect" class="fill-rect" x="0" y="0" width="100%" height="819" fill="#9747FF" />
+                </g>
+            
+                <path
+                    d="M632 1V632H1V1H632ZM350 125.586V507.414L380.586 538H546V451H478.599L478.308 451.278L454.598 474H443.406L450.944 452.328L451 452.169V187.459L457.369 182H546V95H380.586L350 125.586ZM283 125.586L252.414 95H87V182H175.631L182 187.459V445.54L175.631 451H87V538H252.414L283 507.414V125.586Z"
+                    stroke="#9747FE" stroke-width="3" />
+                <path d="M633 687V660H548V687H560V791H548V819H633V792H601L592 801H587L590 792V752H627V725H590V687H633Z"
+                    stroke="#9747FE" stroke-width="3" />
+                <path
+                    d="M533 718V675L518 660H450L435 675V802L450 819H518L533 804V734H482V761H503V788L499 792H476L467 801H462L465 792V691L469 687H499L503 691V718H533Z"
+                    stroke="#9747FE" stroke-width="3" />
+                <path
+                    d="M402 660H310V687H322V792H310V819H402L417 804V675L402 660ZM387 788L383 792H363L354 801H349L352 792V687H383L387 691V788Z"
+                    stroke="#9747FE" stroke-width="3" />
+                <path d="M295 687V660H239V687H251V792H239V819H295V792H283V687H295Z" stroke="#9747FE" stroke-width="3" />
+                <path
+                    d="M215 791L200 760H209L224 745V675L209 660H121V687H132V792H121V819H162V760H166L193 819H227V791H215ZM194 729L190 733H173L164 742H159L162 733V687H190L194 691V729Z"
+                    stroke="#9747FE" stroke-width="3" />
+                <path
+                    d="M106 724V675L91 660H0V687H12V792H0V819H91L106 804V749L89 744V728L106 724ZM73 788L69 792H53L44 801H39L42 792V752H73V788ZM73 725H53L44 734H39L42 725V687H69L73 691V725Z"
+                    stroke="#9747FE" stroke-width="3" />
+            </svg>
         </div>
         <script src="./playgama-bridge.js"></script>
         <script>
+            const fill = document.getElementById('fillRect');
+            const gradientMover = document.getElementById('gradientMover');
+
+            function updateProgress(percent) {
+                const clamped = Math.max(0, Math.min(100, percent));
+                const translateY = 100 - clamped;
+                fill.style.transform = `translateY(${translateY}%)`;
+
+                console.log("[Unity loading] Updating progress bar to: " + clamped + "%");
+
+                if (clamped > 87) {
+                    console.log('adding class');
+                    fill.style.transform = `translateY(0%)`;
+
+                    setTimeout(() => {
+                        fill.style.display = 'none';
+                        gradientMover.style.display = 'block';
+                        gradientMover.classList.add('gradient-mover');
+                    }, 400)
+                } else {
+                    gradientMover.classList.remove('gradient-mover');
+                }
+            }
+
             if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
                 let meta = document.createElement('meta')
                 meta.name = 'viewport'
@@ -73,7 +155,6 @@
             let canvas = document.getElementById('canvas')
             let loadingOverlay = document.getElementById('loading-overlay')
             let progressBarFill = document.getElementById('progress-bar-fill')
-            let bannerContainer = document.getElementById('banner-container')
 
             const STORAGE_DATA_SEPARATOR = '{bridge_data_separator}'
             const STORAGE_KEYS_SEPARATOR = '{bridge_keys_separator}'
@@ -82,8 +163,6 @@
             
             // utils
             window.unityInstance = null
-            let progressBarFillingInterval = null
-            let progressBarCompleteFillingStarted = false
 
             function sendMessageToUnity(name, value) {
                 if (window.unityInstance !== null) {
@@ -92,85 +171,36 @@
             }
 
             function onUnityLoadingProgressChanged(progress) {
-                if (progress >= 1 && progressBarFillingInterval !== null) {
-                    clearInterval(progressBarFillingInterval)
-                    progressBarFillingInterval = null
-                    return
-                }
-
-                if (progressBarCompleteFillingStarted) {
-                    return
-                }
-
-                if (progress >= 0.9) {
-                    progressBarCompleteFillingStarted = true
-                    completeProgressBarFilling()
-                    return
-                }
-
-                progressBarFill.style.width = `${ progress * 100 }%`
+                updateProgress(progress * 100)
             }
             
-            function completeProgressBarFilling() {
-                if (progressBarFillingInterval !== null) {
-                    return
-                }
-
-                let currentPercent = 90
-                progressBarFill.style.width = `${ currentPercent }%`
-                progressBarFillingInterval = setInterval(() => {
-                    currentPercent++
-                    if (currentPercent > 100) {
-                        currentPercent = 100
-                    }
-
-                    progressBarFill.style.width = `${ currentPercent }%`
-
-                    if (currentPercent >= 100) {
-                        clearInterval(progressBarFillingInterval)
-                        progressBarFillingInterval = null
-                        return
-                    }
-                }, 100)
-            }
-
             window.addEventListener('pointerdown', () => {
                 window.focus()
                 canvas.focus()
             })
 
-
-            let bridgeOptions = {
-                platforms: {
-                }
-            }
-
             // initialization
             bridge
-                .initialize(bridgeOptions)
+                .initialize()
                 .then(() => {
                     bridge.advertisement.on('banner_state_changed', state => sendMessageToUnity('OnBannerStateChanged', state))
                     bridge.advertisement.on('interstitial_state_changed', state => sendMessageToUnity('OnInterstitialStateChanged', state))
                     bridge.advertisement.on('rewarded_state_changed', state => sendMessageToUnity('OnRewardedStateChanged', state))
                     bridge.game.on('visibility_state_changed', state => sendMessageToUnity('OnVisibilityStateChanged', state))
 
-                    if (bridge.platform.id === bridge.PLATFORM_ID.GAME_DISTRIBUTION) {
-                        bridge.advertisement.showInterstitial()
-                    }
-
                     let unityLoader = document.createElement('script')
-                    unityLoader.src = 'Build/36dc646f33db2250f30d68e9417ad9c7.loader.js'
+                    unityLoader.src = 'Build/8e65ead9670cdf3e32f1a25ce26102f8.loader.js'
                     unityLoader.onload = () => {
                         createUnityInstance(
                             canvas,
                             {
-                                dataUrl: 'Build/e891ef36c009c433ed747b1a9cdd68b9.data.unityweb',
-                                frameworkUrl: 'Build/a16e7769b8d42e710054be1e86af60d1.framework.js.unityweb',
-                                codeUrl: 'Build/d5a2276e8939e86bcaf56009c302415a.wasm.unityweb',
+                                dataUrl: 'Build/2a97c4cb3c85bfc096c3ced08b891c5f.data.unityweb',
+                                frameworkUrl: 'Build/4d19b12fc23b49ef983e7af7cdae304b.framework.js.unityweb',
+                                codeUrl: 'Build/ccbcee05bb8111553c2f5054ae3947c3.wasm.unityweb',
                                 streamingAssetsUrl: 'StreamingAssets',
                                 companyName: 'Playgama',
-                                productName: 'bridge',
-                                productVersion: '1.19.0',
+                                productName: 'Bridge',
+                                productVersion: '1.22.0',
                                 // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
                                 // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
                             },
@@ -216,6 +246,14 @@
                 }
             }
 
+            window.getIsPlatformGetAllGamesSupported = function() {
+                return bridge.platform.isGetAllGamesSupported.toString()
+            }
+
+            window.getIsPlatformGetGameByIdSupported = function() {
+                return bridge.platform.isGetGameByIdSupported.toString()
+            }
+
             window.sendMessageToPlatform = function(message) {
                 bridge.platform.sendMessage(message)
             }
@@ -230,6 +268,31 @@
                     })
             }
 
+            window.getAllGames = function() {
+                bridge.platform.getAllGames()
+                    .then(result => {
+                        sendMessageToUnity('OnGetAllGamesCompletedSuccess', JSON.stringify(result))
+                    })
+                    .catch(error => {
+                        sendMessageToUnity('OnGetAllGamesCompletedFailed')
+                    })
+            }
+
+            window.getGameById = function(options) {
+                if (options) {
+                    options = JSON.parse(options)
+                } else {
+                    options = { }
+                }
+
+                bridge.platform.getGameById(options)
+                    .then(result => {
+                        sendMessageToUnity('OnGetGameByIdCompletedSuccess', JSON.stringify(result))
+                    })
+                    .catch(error => {
+                        sendMessageToUnity('OnGetGameByIdCompletedFailed')
+                    })
+            }
 
             // device
             window.getDeviceType = function() {
@@ -390,42 +453,28 @@
                 bridge.advertisement.setMinimumDelayBetweenInterstitial(options)
             }
 
-            window.showBanner = function(options) {
-                if (options) {
-                    options = JSON.parse(options)
+            window.getRewardedPlacement = function() {
+                if (bridge.advertisement.rewardedPlacement) {
+                    return bridge.advertisement.rewardedPlacement
                 } else {
-                    options = { }
+                    return ''
                 }
+            }
 
-                if (bridge.platform.id === bridge.PLATFORM_ID.CRAZY_GAMES || bridge.platform.id === bridge.PLATFORM_ID.GAME_DISTRIBUTION) {
-                    bannerContainer.style.display = 'block'
-                }
-
-                options['crazy_games'] = {
-                    containerId: 'banner-container'
-                }
-
-                options['game_distribution'] = {
-                    containerId: 'banner-container'
-                }
-
-                bridge.advertisement.showBanner(options)
+            window.showBanner = function(position, placement) {
+                bridge.advertisement.showBanner(position, placement)
             }
 
             window.hideBanner = function() {
-                if (bridge.platform.id === bridge.PLATFORM_ID.CRAZY_GAMES || bridge.platform.id === bridge.PLATFORM_ID.GAME_DISTRIBUTION) {
-                    bannerContainer.style.display = 'none'
-                }
-
                 bridge.advertisement.hideBanner()
             }
 
-            window.showInterstitial = function() {
-                bridge.advertisement.showInterstitial()
+            window.showInterstitial = function(placement) {
+                bridge.advertisement.showInterstitial(placement)
             }
 
-            window.showRewarded = function() {
-                bridge.advertisement.showRewarded()
+            window.showRewarded = function(placement) {
+                bridge.advertisement.showRewarded(placement)
             }
 
             window.checkAdBlock = function() {
@@ -652,24 +701,8 @@
                 return bridge.payments.isSupported.toString()
             }
 
-            window.getIsCatalogSupported = function() {
-                return bridge.payments.isGetCatalogSupported.toString()
-            }
-
-            window.getIsPurchaseListSupported = function() {
-                return bridge.payments.isGetPurchasesSupported.toString()
-            }
-
-            window.getIsPurchaseConsumingSupported = function() {
-                return bridge.payments.isConsumePurchaseSupported.toString()
-            }
-
-            window.paymentsPurchase = function(options) {
-                if (options) {
-                    options = JSON.parse(options)
-                }
-                
-                bridge.payments.purchase(options)
+            window.paymentsPurchase = function(id) {
+                bridge.payments.purchase(id)
                     .then(data => {
                         if (data) {
                             if (typeof data !== 'string') {
@@ -686,17 +719,21 @@
                     })
             }
 
-            window.paymentsConsumePurchase = function(options) {
-                if (options) {
-                    options = JSON.parse(options)
-                }
-                
-                bridge.payments.consumePurchase(options)
-                    .then(() => {
-                        sendMessageToUnity('OnPaymentsConsumePurchaseCompleted', 'true')
+            window.paymentsConsumePurchase = function(id) {
+                bridge.payments.consumePurchase(id)
+                    .then(data => {
+                        if (data) {
+                            if (typeof data !== 'string') {
+                                data = JSON.stringify(data)
+                            }
+
+                            sendMessageToUnity('OnPaymentsConsumePurchaseCompleted', data)
+                        } else {
+                            sendMessageToUnity('OnPaymentsConsumePurchaseCompleted', '')
+                        }
                     })
                     .catch(error => {
-                        sendMessageToUnity('OnPaymentsConsumePurchaseCompleted', 'false')
+                        sendMessageToUnity('OnPaymentsConsumePurchaseFailed', '')
                     })
             }
 
@@ -714,7 +751,7 @@
                         }
                     })
                     .catch(error => {
-                        sendMessageToUnity('OnPaymentsGetCatalogCompletedFailed', 'false')
+                        sendMessageToUnity('OnPaymentsGetCatalogCompletedFailed', '')
                     })
             }
 
@@ -732,7 +769,7 @@
                         }
                     })
                     .catch(error => {
-                        sendMessageToUnity('OnPaymentsGetPurchasesCompletedFailed', 'false')
+                        sendMessageToUnity('OnPaymentsGetPurchasesCompletedFailed', '')
                     })
             }
 
